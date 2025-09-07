@@ -77,6 +77,7 @@ $(document).ready(function() {
     }, 100));
 
     // Form validation and submission
+    let formSuccessfullySubmitted = false;
     $('form').on('submit', function(event) {
         event.preventDefault();
         const form = $(this);
@@ -94,8 +95,11 @@ $(document).ready(function() {
         });
 
         if (isValid) {
-            // Simulate form submission (replace with actual API call in production)
-            alert('Form submitted successfully! (Demo mode)');
+            $('#success-message').remove();
+            $('<div id="success-message" style="position:fixed;top:30px;left:50%;transform:translateX(-50%);background:#28a745;color:#fff;padding:1rem 2rem;border-radius:6px;z-index:99999;font-size:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);">Details Successfully Submitted</div>')
+                .appendTo('body')
+                .delay(2000)
+                .fadeOut(500, function() { $(this).remove(); });
             form.trigger('reset');
             $('.register-form, .cover').hide();
             $('.register-btn').show();
@@ -117,6 +121,14 @@ $(document).ready(function() {
             $('.register-form, .cover').hide();
             $('.register-btn').show();
             $('form').trigger('reset');
+            if (formSuccessfullySubmitted) {
+                formSuccessfullySubmitted = false;
+                $('#success-message').remove();
+                $('<div id="success-message" style="position:fixed;top:30px;left:50%;transform:translateX(-50%);background:#28a745;color:#fff;padding:1rem 2rem;border-radius:6px;z-index:99999;font-size:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);">Details Successfully Submitted</div>')
+                    .appendTo('body')
+                    .delay(2000)
+                    .fadeOut(500, function() { $(this).remove(); });
+            }
         }
         // NAV BAR SHOW FOR MOBILE RESPONSIVE 
         $('#menu').click(() => {
